@@ -1,0 +1,853 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sanjana Venkat — Product Designer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,300&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  font-family:'DM Sans',sans-serif;
+  background:#f8f8f6;color:#1a1a18;
+  overflow-x:hidden;
+  -webkit-font-smoothing:antialiased;
+  padding-top:64px;
+}
+img{display:block;max-width:100%}
+a{text-decoration:none;color:inherit}
+button{font-family:inherit;cursor:pointer}
+
+/* ── GLASS NAV ── */
+nav{
+  position:fixed;top:0;left:0;right:0;z-index:800;
+  height:64px;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:0 40px;
+  background:rgba(248,248,246,0);
+  backdrop-filter:blur(0px);
+  -webkit-backdrop-filter:blur(0px);
+  border-bottom:1px solid transparent;
+  transition:background .5s ease, backdrop-filter .5s ease, -webkit-backdrop-filter .5s ease, border-color .5s ease, box-shadow .5s ease;
+}
+nav.glass{
+  background:rgba(255,255,255,0.68);
+  backdrop-filter:blur(24px) saturate(200%);
+  -webkit-backdrop-filter:blur(24px) saturate(200%);
+  border-bottom:1px solid rgba(0,0,0,0.05);
+  box-shadow:0 1px 40px rgba(0,0,0,0.04);
+}
+.nav-logo{display:flex;align-items:center;gap:8px;font-size:15px;font-weight:600;letter-spacing:-.01em;color:#1a1a18}
+.nav-dot{width:11px;height:11px;border-radius:50%;background:#f97316;flex-shrink:0;transition:transform .3s cubic-bezier(.34,1.56,.64,1)}
+.nav-logo:hover .nav-dot{transform:scale(1.4)}
+.nav-links{display:flex;align-items:center;gap:32px;list-style:none}
+.nav-links a{font-size:14px;font-weight:400;color:#1a1a18;transition:color .2s}
+.nav-links a:hover{color:#f97316}
+.nav-resume{
+  background:#f97316;color:#fff!important;
+  padding:9px 20px;border-radius:100px;
+  font-size:14px!important;font-weight:500!important;
+  transition:opacity .2s,transform .15s!important;
+}
+.nav-resume:hover{opacity:.85!important;transform:translateY(-1px)!important}
+
+/* ── SMOOTH SCROLL SECTIONS ── */
+/* each major section slides in from below as you scroll */
+.scroll-section{
+  opacity:0;
+  transform:translateY(40px);
+  transition:opacity .7s cubic-bezier(.25,.46,.45,.94), transform .7s cubic-bezier(.25,.46,.45,.94);
+}
+.scroll-section.in-view{opacity:1;transform:translateY(0)}
+.scroll-section.d1{transition-delay:.05s}
+.scroll-section.d2{transition-delay:.12s}
+.scroll-section.d3{transition-delay:.19s}
+.scroll-section.d4{transition-delay:.26s}
+.scroll-section.d5{transition-delay:.33s}
+.scroll-section.d6{transition-delay:.4s}
+
+/* ── HERO ── */
+.hero{
+  max-width:1200px;margin:0 auto;
+  padding:72px 40px 64px;
+  display:grid;
+  grid-template-columns:1fr 300px;
+  gap:56px;
+  align-items:center;
+}
+.hero-left{}
+
+/* word-by-word name animation */
+.hero-name{
+  font-size:clamp(32px,4.5vw,56px);
+  font-weight:700;letter-spacing:-.04em;line-height:1.05;
+  color:#1a1a18;
+  display:flex;flex-wrap:wrap;gap:0 12px;
+  margin-bottom:10px;
+}
+.hero-name .w{
+  display:inline-block;
+  opacity:0;transform:translateY(36px);
+  animation:wUp .65s cubic-bezier(.34,1.2,.64,1) forwards;
+}
+.hero-name .w:nth-child(1){animation-delay:.06s}
+.hero-name .w:nth-child(2){animation-delay:.16s}
+.hero-name .w:nth-child(3){animation-delay:.26s}
+.hero-name .w:nth-child(4){animation-delay:.36s}
+@keyframes wUp{to{opacity:1;transform:translateY(0)}}
+
+.hero-role{
+  font-size:14px;font-weight:400;color:#6b6b65;
+  margin-bottom:28px;letter-spacing:.01em;
+  opacity:0;animation:fadeUp .5s .55s ease both;
+}
+.hero-role .badge{
+  display:inline-block;
+  background:#fff7ed;color:#c2410c;
+  padding:3px 10px;border-radius:4px;
+  font-weight:600;font-size:11px;letter-spacing:.05em;
+  font-family:'Courier New',monospace;
+  margin-right:6px;
+}
+
+/* chat response box */
+.chat-box{
+  background:#fff;border:1px solid #e6e6e0;border-radius:14px;
+  padding:22px 26px;margin-bottom:18px;
+  font-size:14px;font-weight:300;line-height:1.75;color:#1a1a18;
+  display:none;
+  animation:fadeUp .35s ease both;
+}
+.chat-box.active{display:block}
+.chat-box strong{font-weight:600}
+.chat-video-wrap{width:100%;border-radius:8px;overflow:hidden;margin-top:14px;background:#000;aspect-ratio:16/9}
+.chat-video-wrap video{width:100%;height:100%;display:block}
+
+/* pills — lighter orange */
+.pills-wrap{
+  display:flex;flex-wrap:wrap;gap:8px;
+  opacity:0;animation:fadeUp .5s .65s ease both;
+}
+.pill{
+  font-size:13px;font-weight:500;
+  color:#92400e;
+  background:#fff7ed;
+  border:1px solid #fde68a;
+  padding:8px 16px;border-radius:100px;
+  cursor:pointer;
+  transition:background .2s, border-color .2s, color .2s, transform .15s;
+  white-space:nowrap;
+}
+.pill:hover{
+  background:#ffedd5;
+  border-color:#fdba74;
+  color:#c2410c;
+  transform:translateY(-1px);
+}
+.pill.active{
+  background:#fed7aa;
+  border-color:#fb923c;
+  color:#7c2d12;
+}
+
+/* profile photo */
+.hero-right{opacity:0;animation:fadeUp .6s .45s ease both}
+.profile-img{
+  width:100%;aspect-ratio:3/4;
+  border-radius:16px;overflow:hidden;
+  background:linear-gradient(135deg,#fff7ed 0%,#fed7aa 50%,#fb923c 100%);
+}
+.profile-img img{width:100%;height:100%;object-fit:cover;object-position:top center}
+
+/* ── DIVIDER ── */
+.div-line{border:none;border-top:1px solid #e6e6e0;margin:0 40px}
+
+/* ── FLIP CARDS ROW ── */
+.flip-section{max-width:1200px;margin:0 auto;padding:48px 40px 0}
+.sec-lbl{font-size:10px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:#aaa;margin-bottom:14px}
+.flip-row{display:grid;grid-template-columns:repeat(6,1fr);gap:12px}
+.flip-card{perspective:1000px;height:168px}
+.flip-inner{
+  position:relative;width:100%;height:100%;
+  transform-style:preserve-3d;
+  transition:transform .65s cubic-bezier(.23,1,.32,1);
+}
+.flip-card:hover .flip-inner{transform:rotateY(180deg)}
+.flip-f,.flip-b{
+  position:absolute;inset:0;
+  backface-visibility:hidden;-webkit-backface-visibility:hidden;
+  border-radius:14px;
+  display:flex;flex-direction:column;
+  align-items:center;justify-content:center;
+  text-align:center;padding:16px 14px;
+}
+.flip-f{background:#fff;border:1px solid #e6e6e0;gap:6px}
+.flip-f-title{font-size:12px;font-weight:600;color:#1a1a18;line-height:1.3}
+.flip-f-sub{font-size:10px;color:#6b6b65;line-height:1.4}
+.flip-b{background:#f97316;color:#fff;transform:rotateY(180deg);gap:6px}
+.flip-b-stat{font-size:26px;font-weight:700;letter-spacing:-.04em;line-height:1}
+.flip-b-label{font-size:10px;opacity:.82;line-height:1.4}
+
+/* ── ABOUT + TIMELINE ── */
+.about-section{max-width:1200px;margin:0 auto;padding:48px 40px 0}
+.about-grid{display:grid;grid-template-columns:2fr 1fr;gap:14px}
+.tile{background:#fff;border:1px solid #e6e6e0;border-radius:16px;padding:32px}
+.tile-ey{font-size:10px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:#f97316;margin-bottom:16px}
+.tile-body{font-size:15px;font-weight:300;line-height:1.82;color:#1a1a18}
+.tile-body p{margin-bottom:9px}
+.tile-body p:last-child{margin-bottom:0}
+/* timeline */
+.tl-list{display:flex;flex-direction:column;position:relative;padding-left:60px}
+.tl-list::before{content:'';position:absolute;left:42px;top:6px;bottom:6px;width:1px;background:linear-gradient(to bottom,#f97316,#e6e6e0)}
+.tl-item{position:relative;padding-bottom:16px}
+.tl-dot{position:absolute;left:-19px;top:5px;width:8px;height:8px;border-radius:50%;background:#f97316;border:2px solid #fff;box-shadow:0 0 0 2px #f97316}
+.tl-dot.dim{background:#d1d1cb;box-shadow:0 0 0 2px #d1d1cb}
+.tl-yr{position:absolute;left:-60px;top:3px;font-size:10px;font-weight:600;color:#6b6b65;text-align:right;width:33px}
+.tl-name{font-size:13px;font-weight:600;color:#1a1a18;line-height:1.3}
+.tl-sub{font-size:12px;color:#6b6b65;margin-top:2px;line-height:1.45;font-weight:300}
+.tl-cta{margin-top:18px;padding-left:60px}
+.tl-cta p{font-size:13px;color:#6b6b65;font-weight:300;margin-bottom:6px}
+.tl-link{font-size:13px;font-weight:500;color:#f97316;display:inline-flex;align-items:center;gap:5px;transition:gap .2s}
+.tl-link:hover{gap:9px}
+
+/* ── DARK PROJECT CARDS ── */
+.proj-section{max-width:1200px;margin:0 auto;padding:48px 40px 0}
+.proj-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.dark-card{
+  position:relative;overflow:hidden;
+  background:#1a1a1a;cursor:pointer;
+  aspect-ratio:4/3;border-radius:4px;
+  transition:transform .3s cubic-bezier(.34,1.56,.64,1), box-shadow .3s;
+}
+.dark-card:hover{transform:translateY(-3px);box-shadow:0 16px 48px rgba(0,0,0,.18)}
+.dark-card img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .6s cubic-bezier(.25,.46,.45,.94),opacity .4s;opacity:.82}
+.dark-card:hover img{transform:scale(1.04);opacity:.95}
+.dark-overlay{position:absolute;inset:0;background:linear-gradient(to bottom,transparent 30%,rgba(0,0,0,.88) 100%);display:flex;flex-direction:column;justify-content:flex-end;padding:24px}
+.dark-co{font-size:11px;font-weight:500;color:rgba(255,255,255,.5);letter-spacing:.06em;text-transform:uppercase;margin-bottom:5px}
+.dark-title{font-size:clamp(16px,1.6vw,21px);font-weight:700;letter-spacing:-.02em;color:#fff;line-height:1.15;margin-bottom:5px}
+.dark-desc{font-size:12px;font-weight:300;color:rgba(255,255,255,.65);line-height:1.5;display:none}
+.dark-card:hover .dark-desc{display:block}
+.dark-arr{position:absolute;bottom:22px;right:22px;width:32px;height:32px;border-radius:50%;background:rgba(255,255,255,.1);display:flex;align-items:center;justify-content:center;font-size:14px;color:rgba(255,255,255,.6);transition:background .2s,color .2s,transform .2s}
+.dark-card:hover .dark-arr{background:#f97316;color:#fff;transform:translate(2px,-2px)}
+.dark-dual{display:none;gap:6px;margin-top:8px;flex-wrap:wrap}
+.dark-card:hover .dark-dual{display:flex}
+.dark-dual-b{font-size:11px;font-weight:500;color:#fff;background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.2);border-radius:100px;padding:5px 12px;cursor:pointer;transition:background .2s;white-space:nowrap}
+.dark-dual-b:hover{background:rgba(249,115,22,.7);border-color:#f97316}
+/* ripple */
+.rip{position:absolute;border-radius:50%;background:rgba(249,115,22,.22);transform:scale(0);animation:rip .7s ease-out forwards;pointer-events:none}
+@keyframes rip{to{transform:scale(5);opacity:0}}
+
+/* ── FOOTER TAKEOVER ── */
+.footer-takeover{
+  position:fixed;bottom:0;left:0;right:0;
+  z-index:9999;
+  height:56px;
+  background:#f97316;
+  border-radius:0;
+  overflow:hidden;
+  cursor:pointer;
+  transition:height .7s cubic-bezier(.19,1,.22,1);
+}
+.footer-takeover:hover{height:100vh}
+.footer-strip{
+  position:absolute;bottom:0;left:0;right:0;height:56px;
+  display:flex;align-items:center;justify-content:center;gap:12px;
+  transition:opacity .15s;
+}
+.footer-takeover:hover .footer-strip{opacity:0;pointer-events:none}
+.strip-dot{width:7px;height:7px;border-radius:50%;background:rgba(255,255,255,.5)}
+.strip-txt{font-size:12px;font-weight:600;color:#fff;letter-spacing:.08em;text-transform:uppercase}
+.footer-full{
+  position:absolute;inset:0;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  padding:40px;opacity:0;
+  transition:opacity .3s .28s;
+}
+.footer-takeover:hover .footer-full{opacity:1}
+.footer-cta{font-size:clamp(22px,3.5vw,44px);font-weight:700;letter-spacing:-.04em;color:#fff;line-height:1.2;max-width:580px;text-align:center;margin-bottom:32px}
+.footer-links{display:flex;gap:12px;flex-wrap:wrap;justify-content:center}
+.footer-link{display:inline-flex;align-items:center;gap:6px;font-size:14px;font-weight:500;color:#fff;padding:11px 24px;border:1.5px solid rgba(255,255,255,.45);border-radius:100px;transition:background .2s,border-color .2s}
+.footer-link:hover{background:rgba(255,255,255,.15);border-color:rgba(255,255,255,.8)}
+.footer-spacer{height:80px}
+
+/* ── MODAL ── */
+.modal-bg{position:fixed;inset:0;background:rgba(8,8,8,.92);z-index:9000;display:flex;align-items:center;justify-content:center;padding:20px;opacity:0;pointer-events:none;transition:opacity .28s}
+.modal-bg.open{opacity:1;pointer-events:all}
+.modal-box{background:#111;border-radius:4px;border:1px solid rgba(255,255,255,.08);width:100%;max-width:960px;height:88vh;display:flex;flex-direction:column;transform:translateY(18px) scale(.97);transition:transform .38s cubic-bezier(.34,1.56,.64,1);overflow:hidden}
+.modal-bg.open .modal-box{transform:translateY(0) scale(1)}
+.modal-top{display:flex;align-items:center;justify-content:space-between;padding:14px 20px;border-bottom:1px solid rgba(255,255,255,.07);flex-shrink:0}
+.modal-name{font-size:13px;font-weight:500;color:rgba(255,255,255,.38);letter-spacing:.03em}
+.modal-x{background:none;border:none;color:rgba(255,255,255,.38);width:28px;height:28px;border-radius:4px;display:flex;align-items:center;justify-content:center;font-size:18px;line-height:1;transition:background .2s,color .2s}
+.modal-x:hover{background:rgba(255,255,255,.08);color:#fff}
+.modal-body{flex:1;overflow:hidden;position:relative}
+.slide-pane{position:absolute;inset:0;display:flex;flex-direction:column}
+.slide-viewport{flex:1;overflow:hidden}
+.slide-belt{display:flex;height:100%;transition:transform .48s cubic-bezier(.77,0,.175,1)}
+.slide{flex:0 0 100%;padding:48px 56px;overflow-y:auto;display:flex;flex-direction:column}
+.sl-bar{height:3px;width:36px;border-radius:1px;margin-bottom:18px;flex-shrink:0}
+.sl-ey{font-size:10px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.22);margin-bottom:5px}
+.sl-h{font-size:clamp(20px,2.6vw,28px);font-weight:700;letter-spacing:-.03em;color:#fff;line-height:1.1;margin-bottom:24px}
+.sl-grid{display:grid;grid-template-columns:1fr 1fr;gap:28px;flex:1;align-items:start}
+.sl-grid.one{grid-template-columns:1fr}
+.sl-grid.three{grid-template-columns:1fr 1fr 1fr;gap:16px}
+.sl-txt{color:rgba(255,255,255,.58)}
+.sl-txt p{font-size:14px;line-height:1.75;margin-bottom:8px;font-weight:300}
+.sl-txt ul{list-style:none;display:flex;flex-direction:column;gap:10px}
+.sl-txt li{font-size:14px;line-height:1.65;color:rgba(255,255,255,.58);padding-left:14px;position:relative;font-weight:300}
+.sl-txt li::before{content:'/';position:absolute;left:0;color:rgba(255,255,255,.18);font-size:11px;top:2px}
+.sl-txt h5{font-size:10px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.25);margin-bottom:10px}
+.sl-vis{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.07);border-radius:4px;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:24px;min-height:180px;gap:10px;text-align:center}
+.sl-vis em{font-size:28px;opacity:.2;font-style:normal}
+.sl-vis span{font-size:11px;color:rgba(255,255,255,.18);line-height:1.5}
+.sl-q{border-left:2px solid;background:rgba(255,255,255,.04);border-radius:0 4px 4px 0;padding:12px 16px;font-size:14px;line-height:1.65;color:rgba(255,255,255,.46);margin:10px 0}
+.sl-stats{display:flex;gap:28px;flex-wrap:wrap;margin-bottom:20px}
+.sl-sn{font-size:32px;font-weight:700;letter-spacing:-.04em;color:#fff;line-height:1}
+.sl-sl{font-size:10px;color:rgba(255,255,255,.25);letter-spacing:.04em;margin-top:3px}
+.sl-card{background:rgba(255,255,255,.05);border-radius:4px;padding:12px 14px;margin-bottom:8px}
+.sl-card strong{display:block;font-size:12px;color:rgba(255,255,255,.62);margin-bottom:3px;font-weight:600}
+.sl-card span{font-size:11px;color:rgba(255,255,255,.32);font-weight:300}
+.slide-footer{display:flex;align-items:center;justify-content:center;gap:12px;padding:12px 20px;border-top:1px solid rgba(255,255,255,.07);flex-shrink:0}
+.sn-btn{background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.1);color:rgba(255,255,255,.46);width:34px;height:34px;border-radius:4px;display:flex;align-items:center;justify-content:center;font-size:14px;transition:background .2s,color .2s}
+.sn-btn:hover:not(:disabled){background:rgba(255,255,255,.14);color:#fff}
+.sn-btn:disabled{opacity:.15}
+.sn-dots{display:flex;gap:5px;align-items:center}
+.sn-dot{width:5px;height:5px;border-radius:50%;background:rgba(255,255,255,.18);transition:background .2s,transform .2s;cursor:pointer}
+.sn-dot.on{background:#f97316;transform:scale(1.5)}
+.sn-count{font-size:12px;color:rgba(255,255,255,.26);font-variant-numeric:tabular-nums;min-width:38px;text-align:right}
+
+/* live designs modal */
+.live-bg{position:fixed;inset:0;background:rgba(8,8,8,.94);z-index:9100;display:flex;align-items:center;justify-content:center;padding:20px;opacity:0;pointer-events:none;transition:opacity .25s}
+.live-bg.open{opacity:1;pointer-events:all}
+.live-box{background:#111;border-radius:4px;border:1px solid rgba(255,255,255,.08);width:100%;max-width:1000px;max-height:90vh;overflow:hidden;display:flex;flex-direction:column;transform:scale(.96);transition:transform .33s cubic-bezier(.34,1.56,.64,1)}
+.live-bg.open .live-box{transform:scale(1)}
+.live-bar{display:flex;justify-content:space-between;align-items:center;padding:14px 20px;border-bottom:1px solid rgba(255,255,255,.07);flex-shrink:0}
+.live-ttl{font-size:13px;color:rgba(255,255,255,.36);font-weight:500}
+.live-cls{background:none;border:none;color:rgba(255,255,255,.36);width:28px;height:28px;border-radius:4px;display:flex;align-items:center;justify-content:center;font-size:18px;transition:background .2s,color .2s}
+.live-cls:hover{background:rgba(255,255,255,.08);color:#fff}
+.live-body{flex:1;overflow-y:auto;padding:24px}
+.live-note{font-size:13px;color:rgba(255,255,255,.3);margin-bottom:20px;line-height:1.6;font-weight:300}
+.live-note a{color:rgba(255,255,255,.46);text-underline-offset:3px}
+.design-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.d-card{position:relative;border-radius:4px;overflow:hidden;border:1px solid rgba(255,255,255,.08);transition:border-color .22s}
+.d-card:hover{border-color:rgba(249,115,22,.5)}
+.d-card:hover .d-pop{opacity:1;transform:translateY(0)}
+.d-frame{width:100%;aspect-ratio:16/9;background:rgba(255,255,255,.04);display:flex;flex-direction:column;align-items:center;justify-content:center;font-size:11px;color:rgba(255,255,255,.18);text-align:center;padding:12px;gap:4px}
+.d-info{padding:10px 14px}
+.d-info h4{font-size:13px;color:rgba(255,255,255,.6);font-weight:600;margin-bottom:2px}
+.d-info p{font-size:11px;color:rgba(255,255,255,.28);font-weight:300}
+.d-pop{position:absolute;bottom:0;left:0;right:0;background:rgba(154,52,18,.93);padding:12px 14px;opacity:0;transform:translateY(5px);transition:opacity .2s,transform .2s;backdrop-filter:blur(8px)}
+.d-pop h5{font-size:10px;font-weight:600;color:rgba(255,255,255,.46);letter-spacing:.1em;text-transform:uppercase;margin-bottom:4px}
+.d-pop p{font-size:12px;color:rgba(255,255,255,.8);line-height:1.5;font-weight:300}
+
+@keyframes fadeUp{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:translateY(0)}}
+
+/* responsive */
+@media(max-width:960px){
+  .hero{grid-template-columns:1fr;gap:32px}
+  .hero-right{display:none}
+  .flip-row{grid-template-columns:repeat(3,1fr)}
+  .about-grid{grid-template-columns:1fr}
+  .proj-grid{grid-template-columns:1fr 1fr}
+  .design-grid{grid-template-columns:1fr}
+}
+@media(max-width:600px){
+  nav{padding:0 20px}
+  .hero,.flip-section,.about-section,.proj-section{padding-left:20px;padding-right:20px}
+  .div-line{margin:0 20px}
+  .flip-row{grid-template-columns:repeat(2,1fr)}
+  .proj-grid{grid-template-columns:1fr}
+  .slide{padding:28px 24px}
+  .sl-grid,.sl-grid.three{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+
+<!-- GLASS NAV -->
+<nav id="NAV">
+  <a href="#" class="nav-logo"><span class="nav-dot"></span>SV</a>
+  <ul class="nav-links">
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="https://www.linkedin.com/in/sanjana-venkat/" target="_blank">Connect</a></li>
+    <li><a href="https://framerusercontent.com/assets/UT5vUf39xPI4N9TOwO40F2pDmeM.pdf" target="_blank" class="nav-resume">Resume</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-left">
+    <h1 class="hero-name">
+      <span class="w">Hi,</span>
+      <span class="w">I'm</span>
+      <span class="w">Sanjana</span>
+      <span class="w">Venkat.</span>
+    </h1>
+    <p class="hero-role"><span class="badge">PRODUCT DESIGN ENGINEER</span> turning ambiguity into direction</p>
+
+    <div class="chat-box" id="chatBox"></div>
+
+    <div class="pills-wrap">
+      <button class="pill" onclick="showPill(this,'data')">Show data-driven design</button>
+      <button class="pill" onclick="showPill(this,'story')">Tell me a story</button>
+      <button class="pill" onclick="showPill(this,'ai')">AI / ML experience</button>
+      <button class="pill" onclick="showPill(this,'strategy')">Show product strategy thinking</button>
+      <button class="pill" onclick="showPill(this,'system')">Design system experience</button>
+      <button class="pill" onclick="showPill(this,'exec')">Executive leadership pitches</button>
+    </div>
+  </div>
+
+  <div class="hero-right">
+    <div class="profile-img">
+      <img src="sanjana-photo.png" alt="Sanjana Venkat">
+    </div>
+  </div>
+</section>
+
+<hr class="div-line">
+
+<!-- FLIP CARDS -->
+<section class="flip-section scroll-section d1">
+  <p class="sec-lbl">Featured Work — hover to flip</p>
+  <div class="flip-row">
+    <div class="flip-card"><div class="flip-inner">
+      <div class="flip-f"><span class="flip-f-title">AI Personalization</span><span class="flip-f-sub">Dashboard marketing tiles</span></div>
+      <div class="flip-b"><span class="flip-b-stat">17%</span><span class="flip-b-label">CTR increase with AI-driven tiles</span></div>
+    </div></div>
+    <div class="flip-card"><div class="flip-inner">
+      <div class="flip-f"><span class="flip-f-title">Casey AI</span><span class="flip-f-sub">AI-assisted calling agent</span></div>
+      <div class="flip-b"><span class="flip-b-stat">1K+</span><span class="flip-b-label">AI-assisted calls via Bland AI</span></div>
+    </div></div>
+    <div class="flip-card"><div class="flip-inner">
+      <div class="flip-f"><span class="flip-f-title">Geo Rates + AI Search</span><span class="flip-f-sub">ChatGPT &amp; Gemini integration</span></div>
+      <div class="flip-b"><span class="flip-b-stat">&#8599;</span><span class="flip-b-label">Used by exec leadership at JPMC</span></div>
+    </div></div>
+    <div class="flip-card"><div class="flip-inner">
+      <div class="flip-f"><span class="flip-f-title">Home Lending Public</span><span class="flip-f-sub">chase.com redesign</span></div>
+      <div class="flip-b"><span class="flip-b-stat">33%</span><span class="flip-b-label">Conversion improvement</span></div>
+    </div></div>
+    <div class="flip-card"><div class="flip-inner">
+      <div class="flip-f"><span class="flip-f-title">Home Lending Apply</span><span class="flip-f-sub">Application flow redesign</span></div>
+      <div class="flip-b"><span class="flip-b-stat">&#8595;</span><span class="flip-b-label">Significant drop-off reduction</span></div>
+    </div></div>
+    <div class="flip-card"><div class="flip-inner">
+      <div class="flip-f"><span class="flip-f-title">Atomic Design</span><span class="flip-f-sub">Paycom component research</span></div>
+      <div class="flip-b"><span class="flip-b-stat">30%</span><span class="flip-b-label">Component count reduced</span></div>
+    </div></div>
+  </div>
+</section>
+
+<hr class="div-line" style="margin-top:48px">
+
+<!-- ABOUT + TIMELINE -->
+<section class="about-section scroll-section d2">
+  <div class="about-grid">
+    <div class="tile scroll-section d2">
+      <div class="tile-ey">What I believe</div>
+      <div class="tile-body">
+        <p>i believe good products don't just solve problems.</p>
+        <p>they reveal ones people didn't know they had.</p>
+        <p>all of my work has been about closing the gap between what people do and what they actually need.</p>
+        <p>with AI and personalization, that gap gets smaller.</p>
+        <p>but the real work is still human: listening, framing, building things that help people move forward.</p>
+        <p style="color:#6b6b65;margin-top:8px">these days i'm a design engineer. vibe coding with Cursor, Claude, and Gemini. at JPMC i shipped a standardized atomic design template that cut 3 sprints off marketing velocity.</p>
+      </div>
+    </div>
+    <div class="tile scroll-section d3">
+      <div class="tile-ey">How I got here</div>
+      <div class="tl-list">
+        <div class="tl-item">
+          <span class="tl-yr">2023</span><span class="tl-dot dim"></span>
+          <div class="tl-name">B.S. Psychology</div>
+          <div class="tl-sub">UT Dallas</div>
+        </div>
+        <div class="tl-item">
+          <span class="tl-yr">2023</span><span class="tl-dot dim"></span>
+          <div class="tl-name">Associate Product Designer</div>
+          <div class="tl-sub">Paycom. founding member of a new subteam. went all out.</div>
+        </div>
+        <div class="tl-item">
+          <span class="tl-yr">2024</span><span class="tl-dot"></span>
+          <div class="tl-name">Senior Product Designer</div>
+          <div class="tl-sub">JP Morgan Chase. leading Marketing and AI. owned it from day one.</div>
+        </div>
+      </div>
+      <div class="tl-cta">
+        <p>i bring people together and present really well.</p>
+        <a href="#projects" class="tl-link">let me show you &#8599;</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="div-line" style="margin-top:48px">
+
+<!-- PROJECT CARDS -->
+<section class="proj-section scroll-section d3" id="projects">
+  <p class="sec-lbl" style="margin-bottom:16px">Selected Work</p>
+  <div class="proj-grid">
+
+    <div class="dark-card scroll-section d3" onclick="openProject('personalization',event)">
+      <img src="https://framerusercontent.com/images/ULRP0FZksJHUAfiiIvrdPTDdkE4.png" alt="" loading="lazy">
+      <div class="dark-overlay"><div class="dark-co">JP Morgan Chase</div><div class="dark-title">AI Personalization</div><div class="dark-desc">Making every tile feel like it was made for you, not for everyone</div></div>
+      <div class="dark-arr">&#8599;</div>
+    </div>
+
+    <div class="dark-card scroll-section d4" onclick="openProject('casey',event)">
+      <img src="https://framerusercontent.com/images/ok2FwLhpQVwF3DD3NzVjcxrqtjs.png" alt="" loading="lazy">
+      <div class="dark-overlay"><div class="dark-co">JP Morgan Chase</div><div class="dark-title">Casey AI</div><div class="dark-desc">1,000+ AI-assisted conversations via Bland AI</div></div>
+      <div class="dark-arr">&#8599;</div>
+    </div>
+
+    <div class="dark-card scroll-section d5" onclick="openProject('geo',event)">
+      <img src="https://framerusercontent.com/images/ok2FwLhpQVwF3DD3NzVjcxrqtjs.png" alt="" loading="lazy">
+      <div class="dark-overlay"><div class="dark-co">JP Morgan Chase</div><div class="dark-title">Geo Rates + AI Search</div><div class="dark-desc">Location-aware rates surfaced inside ChatGPT and Gemini</div></div>
+      <div class="dark-arr">&#8599;</div>
+    </div>
+
+    <div class="dark-card scroll-section d3" onclick="void(0)">
+      <img src="https://framerusercontent.com/images/ymR75kzrcRfz85kR75nKia3tc.png" alt="" loading="lazy">
+      <div class="dark-overlay">
+        <div class="dark-co">JP Morgan Chase</div>
+        <div class="dark-title">Home Lending Public</div>
+        <div class="dark-desc">Redesigning chase.com for how people actually shop mortgages</div>
+        <div class="dark-dual">
+          <button class="dark-dual-b" onclick="event.stopPropagation();openProject('public',event)">See the story</button>
+          <button class="dark-dual-b" onclick="event.stopPropagation();openLive()">Understand design decisions</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="dark-card scroll-section d4" onclick="openProject('apply',event)">
+      <img src="https://framerusercontent.com/images/e0JafsX6yFBE3XfQIKUvkSi4.png" alt="" loading="lazy">
+      <div class="dark-overlay"><div class="dark-co">JP Morgan Chase</div><div class="dark-title">Home Lending Apply</div><div class="dark-desc">Rates before forms. Clarity before commitment.</div></div>
+      <div class="dark-arr">&#8599;</div>
+    </div>
+
+    <div class="dark-card scroll-section d5" onclick="openProject('paycom',event)">
+      <img src="https://framerusercontent.com/images/gNLwnTvoQzi4jGByOozbrwUuoz8.png" alt="" loading="lazy">
+      <div class="dark-overlay"><div class="dark-co">Paycom</div><div class="dark-title">Atomic Design Enhancement</div><div class="dark-desc">Going beyond the brief to propose a smarter component system</div></div>
+      <div class="dark-arr">&#8599;</div>
+    </div>
+
+  </div>
+</section>
+
+<div class="footer-spacer"></div>
+
+<!-- FOOTER TAKEOVER -->
+<div class="footer-takeover" id="footerTakeover">
+  <div class="footer-strip">
+    <div class="strip-dot"></div>
+    <span class="strip-txt">Get in touch</span>
+    <div class="strip-dot"></div>
+  </div>
+  <div class="footer-full">
+    <p class="footer-cta">Wish your vision meets impact soon?<br>Let's bring it on sooner :)</p>
+    <div class="footer-links">
+      <a href="mailto:sanjanavnkt20@gmail.com" class="footer-link" onclick="event.stopPropagation()">Email</a>
+      <a href="https://www.linkedin.com/in/sanjana-venkat/" target="_blank" class="footer-link" onclick="event.stopPropagation()">LinkedIn</a>
+      <a href="https://framerusercontent.com/assets/UT5vUf39xPI4N9TOwO40F2pDmeM.pdf" target="_blank" class="footer-link" onclick="event.stopPropagation()">Resume</a>
+    </div>
+  </div>
+</div>
+
+<!-- STORY MODAL -->
+<div class="modal-bg" id="modalBg" onclick="if(event.target===this)closeModal()">
+  <div class="modal-box">
+    <div class="modal-top">
+      <span class="modal-name" id="modalName"></span>
+      <button class="modal-x" onclick="closeModal()">&#x2715;</button>
+    </div>
+    <div class="modal-body">
+      <div class="slide-pane">
+        <div class="slide-viewport"><div class="slide-belt" id="belt"></div></div>
+        <div class="slide-footer">
+          <button class="sn-btn" id="slPrev" onclick="prevSl()">&#8592;</button>
+          <div class="sn-dots" id="slDots"></div>
+          <button class="sn-btn" id="slNext" onclick="nextSl()">&#8594;</button>
+          <span class="sn-count" id="slCount">1 / 6</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- LIVE DESIGNS MODAL -->
+<div class="live-bg" id="liveBg" onclick="if(event.target===this)closeLive()">
+  <div class="live-box">
+    <div class="live-bar"><span class="live-ttl">Home Lending Public — Live on chase.com</span><button class="live-cls" onclick="closeLive()">&#x2715;</button></div>
+    <div class="live-body">
+      <p class="live-note">These designs are live on <a href="https://www.chase.com/personal/mortgage" target="_blank">chase.com/personal/mortgage</a>. Hover each section to see the design decision behind it.</p>
+      <div class="design-grid">
+        <div class="d-card"><div class="d-frame">Hero Section<br><span style="font-size:10px;opacity:.6">"We're with you, all the way home"</span></div><div class="d-info"><h4>Hero Messaging</h4><p>Emotional trust before product detail</p></div><div class="d-pop"><h5>Design Decision</h5><p>Led with emotional reassurance first. The on-time closing guarantee handles commitment anxiety before the customer raises it.</p></div></div>
+        <div class="d-card"><div class="d-frame">Rate Module<br><span style="font-size:10px;opacity:.6">Rates above the fold</span></div><div class="d-info"><h4>Rates First</h4><p>Most-desired content moved to top</p></div><div class="d-pop"><h5>Design Decision</h5><p>Rates were the #4 click, buried 3 scrolls down. Surfacing them immediately removed the affordability anxiety causing drop-off.</p></div></div>
+        <div class="d-card"><div class="d-frame">Navigation Tabs<br><span style="font-size:10px;opacity:.6">Buy / Refinance / Home Equity</span></div><div class="d-info"><h4>Need-Based Segmentation</h4><p>Goal-first, not product-first</p></div><div class="d-pop"><h5>Design Decision</h5><p>Old structure organized by product. New structure starts with customer intent. We also pushed hard to modernize the design stack — championing a redesigned rates page and calculators that actually served customer needs first.</p></div></div>
+        <div class="d-card"><div class="d-frame">HLA Module<br><span style="font-size:10px;opacity:.6">"Need a human touch?"</span></div><div class="d-info"><h4>Human Guardrail</h4><p>Digital-first, human when needed</p></div><div class="d-pop"><h5>Design Decision</h5><p>Customers want to self-serve but need a safety net. HLA access answers "what if I have questions?" before they have to ask.</p></div></div>
+        <div class="d-card"><div class="d-frame">Calculators<br><span style="font-size:10px;opacity:.6">Affordability + Payment tools</span></div><div class="d-info"><h4>Tools Before Forms</h4><p>Value before asking for anything</p></div><div class="d-pop"><h5>Design Decision</h5><p>Calculators answer "can I afford this?" without Chase needing any data first. Part of our push for a modern design system that let us actually ship these components properly.</p></div></div>
+        <div class="d-card"><div class="d-frame">CTA Architecture<br><span style="font-size:10px;opacity:.6">Apply Now vs See Rates</span></div><div class="d-info"><h4>CTA Reduction</h4><p>From 20+ CTAs to a clear hierarchy</p></div><div class="d-pop"><h5>Design Decision</h5><p>Previous design had 20+ CTAs creating paralysis. New design has two paths: act or explore. Every CTA ladders to one of those two outcomes.</p></div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+/* ── NAV GLASS ON SCROLL ── */
+var nav = document.getElementById('NAV');
+window.addEventListener('scroll', function() {
+  if (window.scrollY > 20) {
+    nav.classList.add('glass');
+  } else {
+    nav.classList.remove('glass');
+  }
+}, { passive: true });
+
+/* ── SMOOTH SCROLL REVEAL ── */
+var scrollEls = document.querySelectorAll('.scroll-section');
+var scrollObs = new IntersectionObserver(function(entries) {
+  entries.forEach(function(entry) {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('in-view');
+      scrollObs.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.08 });
+scrollEls.forEach(function(el) { scrollObs.observe(el); });
+
+/* ── RIPPLE ── */
+document.querySelectorAll('.dark-card').forEach(function(c) {
+  c.addEventListener('click', function(e) {
+    var r = document.createElement('span');
+    r.className = 'rip';
+    var rc = c.getBoundingClientRect();
+    var sz = Math.max(rc.width, rc.height) * 2.5;
+    r.style.cssText = 'width:' + sz + 'px;height:' + sz + 'px;left:' + (e.clientX - rc.left - sz/2) + 'px;top:' + (e.clientY - rc.top - sz/2) + 'px';
+    c.appendChild(r);
+    setTimeout(function() { r.remove(); }, 800);
+  });
+});
+
+/* ── CHATBOT PILLS ── */
+var PILL = {
+  data: {
+    text: '<strong>Data-driven design at JPMC:</strong> I led the redesign of chase.com\'s Home Lending experience after building a funnel visualization that showed leadership the market we were missing. That visualization alone secured $10K+ in investment. The redesign shipped with a 33% conversion improvement and 38% boost in lead initiation — all grounded in exit survey analysis, click heatmaps, and A/B testing.<br><br>One real constraint: we were working within an older design system stack. Despite that, we pushed hard for a modern foundation — championing a redesigned rates page and calculators that could actually serve customer needs first. That advocacy became part of the roadmap.',
+    video: true,
+    live: true,
+    liveLabel: 'Understand design decisions'
+  },
+  story: {
+    text: '<strong>Here\'s how it happened:</strong><br><br>I joined Paycom as an Associate Product Designer and threw myself into the work completely. Not just doing my job — I became one of the founding members of a brand new subteam, helping build something from scratch while most people were still finding their footing.<br><br>Then out of nowhere, JPMC reached out. Turns out I had helped someone with a presentation at a conference I organized back in college — and that stuck with them. When they had an opening, they remembered.<br><br>I applied. I got the role. And they brought me in as a Senior Product Designer — a real bump — because of how I presented myself and my work.<br><br>From there, I moved fast. Required little to no guidance. Owned AI initiatives, set the foundation for the marketing design team, and built things that still run today. I learn by doing, and I do a lot.'
+  },
+  ai: {
+    text: '<strong>AI / ML experience:</strong> I\'ve shipped AI features across three dimensions at JPMC: (1) an AI personalization recommendation model for Home Lending dashboard tiles (17% CTR lift), (2) Casey AI — an AI calling agent built with Bland AI that handled 1,000+ customer conversations, and (3) ChatGPT and Gemini integrations where Chase surfaces inside AI search — work that an executive leader used to present to senior JPMC leadership.',
+    video: true
+  },
+  strategy: {
+    text: '<strong>Product strategy thinking:</strong> My strongest leverage is framing. Before a line of code is written, I define what problem we\'re actually solving. At JPMC I ran 3-day workshops to get leadership from "we need a redesign" to "here\'s the specific problem, here\'s the data, here\'s the roadmap." I\'ve shaped initiative direction on AI personalization, the apply flow, and the public lending experience — each backed by data and measured against business outcomes.'
+  },
+  system: {
+    text: '<strong>Design system experience:</strong> At JPMC I built a standardized atomic design template that cut 3 sprints off marketing velocity — no future design or engineering handoff needed for new tile variants. At Paycom I went beyond my project brief to audit the entire component library, finding spacing inconsistencies, fragmented interaction states, and 40+ variants that could be 3. I proposed a full remediation: 8pt token system, inherited state patterns, and prop-based composition.'
+  },
+  exec: {
+    text: '<strong>Executive leadership pitches:</strong> My team built ChatGPT and Gemini integration prototypes in under a week as a design sprint — the video was used by an executive leader to present the concepts to senior JPMC leadership. I also regularly create market opportunity visualizations that translate design decisions into business language — one of which secured $10K+ in investment for the Home Lending Public redesign.',
+    video: true
+  }
+};
+
+function showPill(btn, id) {
+  document.querySelectorAll('.pill').forEach(function(p) { p.classList.remove('active'); });
+  btn.classList.add('active');
+  var c = PILL[id];
+  var box = document.getElementById('chatBox');
+  box.classList.remove('active');
+  setTimeout(function() {
+    var html = '<p>' + c.text + '</p>';
+    if (c.video) {
+      html += '<div class="chat-video-wrap"><video controls playsinline preload="metadata" src="demo.mov" style="width:100%;height:100%;display:block">Your browser does not support video.</video></div>';
+    }
+    if (c.live) {
+      html += '<p style="margin-top:12px;font-size:13px;color:#6b6b65"><button onclick="openLive()" style="font-size:13px;font-weight:500;color:#c2410c;background:none;border:none;cursor:pointer;padding:0;text-decoration:underline;text-underline-offset:3px">' + (c.liveLabel || 'See live designs') + ' &#8599;</button></p>';
+    }
+    box.innerHTML = html;
+    box.classList.add('active');
+    box.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+  }, 80);
+}
+
+/* ── PROJECT DATA ── */
+var P = {
+  personalization: {
+    name: 'AI Personalization \u00b7 JPMC', acc: '#f97316',
+    slides: [
+      { ey: 'The Problem', h: 'One tile. Two million customers.',
+        body: '<div class="sl-grid"><div class="sl-txt"><ul><li>Every customer sees the exact same generic home loan tile regardless of their situation</li><li>2.06% CTR on the Home Lending tile \u2014 far below every other dashboard tile</li><li>40% of Chase mortgage customers never engaged with Chase MyHome</li><li>Only 5% of 2M transacted customers engaged 6 months before their transaction</li></ul><div class="sl-q" style="border-color:#f97316;margin-top:14px">"I got an email about lowering my payment to 5% but my rate is 3% from the pandemic. You might want to be more targeted."</div></div><div class="sl-vis"><em>\ud83d\udcca</em><span>Generic dashboard tile vs. engagement data</span></div></div>' },
+      { ey: 'Discovery', h: '1-Day Workshop: assumption mapping.',
+        body: '<div class="sl-grid"><div class="sl-txt"><ul><li>Desirability: do people actually want this?</li><li>Feasibility: can we build the recommendation model?</li><li>Viability: will it create long-term business value?</li></ul><div class="sl-card" style="margin-top:14px"><strong>Business goal</strong><span>Increase Chase MyHome CTR and lead initiate rate</span></div><div class="sl-card"><strong>Use cases scoped</strong><span>Refinance, HELOC, Purchase, Equity</span></div></div><div class="sl-vis"><em>\ud83d\uddc2\ufe0f</em><span>Workshop photos<br>assumption mapping grid</span></div></div>' },
+      { ey: 'The Insight', h: 'Data alone doesn\'t know what John actually wants.',
+        body: '<div class="sl-grid"><div class="sl-txt"><ul><li>John looks like a refinance candidate on paper \u2014 but might want HELOC, to pay off faster, or buy a second home</li><li>Showing one product to a high-propensity customer still misses if their goal is different</li></ul><div class="sl-q" style="border-color:#f97316;margin-top:14px">"It makes you feel special. My mortgage company made me a little video. In a world with no customer service left, it felt nice."</div></div><div class="sl-vis"><em>\ud83c\udfaf</em><span>John\'s four possible goals<br>one tile can\'t serve all four</span></div></div>' },
+      { ey: 'Proposal', h: 'Track intent signals. Show the tile that matches the goal.',
+        body: '<div class="sl-grid"><div class="sl-txt"><ul><li>Recommendation model ingests behavioral signals, recent activity, financial indicators</li><li>Tile content adapts dynamically: refinance, HELOC, purchase, equity</li><li>Built a full tile system with variants for each use case</li><li>Worked with engineering to make atomic design components support all tile variants</li></ul></div><div class="sl-vis"><em>\ud83c\udfa8</em><span>Tile variant designs<br>refinance / HELOC / purchase / equity</span></div></div>' },
+      { ey: 'Testing', h: 'Specificity drove clicks.',
+        body: '<div class="sl-grid"><div class="sl-txt"><ul><li>A/B test: personalized variants vs. control generic tile</li><li>Showing an actual rate or equity amount drove significantly more clicks</li><li>Iterated on copy and visual hierarchy based on early signals</li></ul></div><div class="sl-vis"><em>\ud83d\udcc8</em><span>A/B test results<br>control vs. personalized variants</span></div></div>' },
+      { ey: 'Impact', h: '17% CTR lift.',
+        body: '<div class="sl-grid one"><div class="sl-txt"><div class="sl-stats"><div><div class="sl-sn" style="color:#f97316">17%</div><div class="sl-sl">CTR increase</div></div><div><div class="sl-sn" style="color:#f97316">3</div><div class="sl-sl">Sprints saved with atomic system</div></div></div><ul><li>Personalization is predicting what job the customer is trying to get done, not just swapping content</li><li>The atomic template means no future design or engineering work needed for new tile variants</li><li>Became the foundation for how the marketing team thinks about AI-driven personalization</li></ul></div></div>' }
+    ]
+  },
+  casey: {
+    name: 'Casey AI \u00b7 JPMC', acc: '#0d9488',
+    slides: [
+      { ey: 'The Opportunity', h: 'What if AI could be there when your advisors can\'t?',
+        body: '<div class="sl-grid"><div class="sl-txt"><ul><li>Home Lending Advisors are expensive, time-limited, and unavailable on weekends</li><li>Customers who call with questions often drop off before ever submitting</li><li>The timing gap between interest and application is where Chase was losing people</li></ul><div class="sl-q" style="border-color:#0d9488;margin-top:14px">Casey AI: an AI-powered calling agent built in partnership with Bland AI.</div></div><div class="sl-vis"><em>\ud83d\udcde</em><span>Casey AI concept<br>AI calling agent</span></div></div>' },
+      { ey: 'Research', h: 'The gap between searching and deciding.',
+        body: '<div class="sl-grid"><div class="sl-txt"><ul><li>Customers arrive from search or ads ready to act, then hit friction: SSN, forms, account creation</li><li>Many want a human conversation before committing</li><li>A well-timed AI call bridges intent and conversion</li></ul><div class="sl-q" style="border-color:#0d9488;margin-top:14px">"I just wanted someone to explain the process. I didn\'t know if I was ready to apply, so I left."</div></div><div class="sl-vis"><em>\ud83d\uddfa\ufe0f</em><span>Customer journey map<br>intent vs. action gap</span></div></div>' },
+      { ey: 'Design', h: 'Conversation flows that feel like a person, not a script.',
+        body: '<div class="sl-grid"><div class="sl-txt"><ul><li>Lead with value, never with forms</li><li>Acknowledge context. Use what Chase already knows.</li><li>Always offer a human option \u2014 Casey is a bridge, not a wall</li><li>Iterated on scripts with real call recordings</li></ul></div><div class="sl-vis"><em>\ud83d\udcac</em><span>Conversation flow diagrams<br>script decision trees</span></div></div>' },
+      { ey: 'Partnership', h: 'Bland AI x JPMC.',
+        body: '<div class="sl-grid"><div class="sl-txt"><ul><li>Partnered with Bland AI for real-time, low-latency voice conversations at scale</li><li>Designed the handoff: when Casey escalates, context is passed, not repeated</li><li>Casey never gives specific rate quotes \u2014 defers sensitive decisions to humans</li></ul></div><div class="sl-vis"><em>\ud83e\udd1d</em><span>Bland AI integration<br>escalation handoff design</span></div></div>' },
+      { ey: 'Impact', h: '1,000+ conversations. Timing gaps closed.',
+        body: '<div class="sl-grid one"><div class="sl-txt"><div class="sl-stats"><div><div class="sl-sn" style="color:#0d9488">1K+</div><div class="sl-sl">AI-assisted calls via Bland AI</div></div><div><div class="sl-sn" style="color:#0d9488">24/7</div><div class="sl-sl">Availability including weekends</div></div></div><ul><li>AI is most valuable when it removes timing gaps</li><li>Voice UX is its own discipline: brevity, warmth, and clear escalation paths</li><li>Casey became the proof point for AI-human collaboration in financial services at scale</li></ul></div></div>' }
+    ]
+  },
+  geo: {
+    name: 'Geo Rates + AI Search \u00b7 JPMC', acc: '#7c3aed',
+    slides: [
+      { ey: 'The Shift', h: 'AI is the new front door for financial discovery.',
+        body: '<div class="sl-grid"><div class="sl-txt"><ul><li>ChatGPT, Gemini, and Perplexity are where customers go first with financial questions</li><li>If Chase doesn\'t show up meaningfully in these surfaces, we lose the intent moment entirely</li></ul></div><div class="sl-vis"><em>\ud83c\udf10</em><span>AI search landscape<br>where customers go first</span></div></div>' },
+      { ey: 'Geo Rates', h: 'The right rate for the right market.',
+        body: '<div class="sl-grid"><div class="sl-txt"><ul><li>What\'s competitive in Dallas is different from San Francisco</li><li>Designed a system to serve location-aware rate content across public pages and AI surfaces</li><li>When a customer asks ChatGPT "mortgage rates near me," Chase\'s geo-optimized content appears</li></ul></div><div class="sl-vis"><em>\ud83d\udccd</em><span>Geo rate logic<br>market variation examples</span></div></div>' },
+      { ey: 'ChatGPT Integration', h: 'Pre-approval letter at 11pm on a Saturday.',
+        body: '<div class="sl-grid"><div class="sl-txt"><ul><li>When buyers need a lower pre-approval while house shopping, ChatGPT updates it instantly</li><li>ChatGPT explains why lowering the pre-approval improves offer strength</li><li>Drafts and sends the offer letter to the HLA or realtor using existing contacts</li></ul></div><div class="sl-vis"><em>\ud83d\udca1</em><span>ChatGPT plugin prototype<br>pre-approval update flow</span></div></div>' },
+      { ey: 'Gemini Integration', h: 'From a photo of a home to a financial plan.',
+        body: '<div class="sl-grid"><div class="sl-txt"><ul><li>Journey begins with a photo of a home \u2014 Gemini estimates value using public data</li><li>When the task requires private financial data, Gemini hands off to Chase app</li><li>Chase AI analyzes down payment readiness, checks credit, schedules an advisor \u2014 all through conversation</li></ul><div class="sl-q" style="border-color:#7c3aed;margin-top:14px">Gemini supports exploration. Chase owns execution.</div></div><div class="sl-vis"><em>\ud83d\udd2e</em><span>Gemini prototype flow<br>Chase handoff screens</span></div></div>' },
+      { ey: 'Reflection', h: 'Used by an executive leader to present to senior JPMC leadership.',
+        body: '<div class="sl-grid one"><div class="sl-txt"><ul><li>AI is most valuable when it removes timing gaps</li><li>The future of search is accountable action: AI earns trust when it leads to clear next steps</li><li>Trust is a design boundary \u2014 deciding when to stay inside an AI interface vs. hand off is a core UX decision</li><li>These prototypes were built in under a week as a design sprint \u2014 the work was used by an executive leader to present to senior JPMC leadership</li></ul></div></div>' }
+    ]
+  },
+  public: {
+    name: 'Home Lending Public \u00b7 JPMC', acc: '#4f46e5',
+    slides: [
+      { ey: 'The Problem', h: 'High traffic. Low conversion.',
+        body: '<div class="sl-grid"><div class="sl-txt"><ul><li>Over 800 public pages, inconsistent branding, 20+ CTAs with unclear pathways</li><li>Rates were the 4th most-clicked element \u2014 buried 3 scrolls down</li><li>"Start online" immediately triggered SSN collection before customers saw any value</li></ul><div class="sl-q" style="border-color:#4f46e5;margin-top:14px">I created a simple visualization of the market we were missing. It secured $10,000+ in investment for the redesign.</div></div><div class="sl-vis"><em>\ud83d\udcc9</em><span>Conversion funnel<br>traffic vs. drop-off</span></div></div>' },
+      { ey: 'Research', h: 'Why do people visit but not convert?',
+        body: '<div class="sl-grid"><div class="sl-txt"><ul><li>Applied the four forces model: push/pull forces, habits and anxieties blocking action</li><li>Customers need to see value before they\'re asked for anything</li></ul><div class="sl-q" style="border-color:#4f46e5;margin-top:14px">"I notice the apply button but I would definitely spend more time in the learn section before deciding."</div></div><div class="sl-vis"><em>\ud83d\udd0d</em><span>Four forces model<br>competitor analysis</span></div></div>' },
+      { ey: 'Workshop', h: '3-Day workshop. Blue sky to signed-off roadmap.',
+        body: '<div class="sl-grid"><div class="sl-txt"><ul><li>Started with blue sky thinking: no tech constraints, just vision</li><li>Then scenario mapping, design concepts, roadmap planning</li><li>Stakeholders saw the vision through sketches before any Figma existed</li></ul></div><div class="sl-vis"><em>\ud83d\uddfa\ufe0f</em><span>Workshop photos<br>blue sky sketches</span></div></div>' },
+      { ey: 'Constraint', h: 'Working within an older design system stack.',
+        body: '<div class="sl-grid"><div class="sl-txt"><ul><li>Real constraint: the existing design system had limited component flexibility</li><li>We pushed hard for a modern foundation \u2014 championing a redesigned rates page and calculators that served customer needs first</li><li>That advocacy for system modernization became part of the roadmap</li><li>Proved that the right framing can move even legacy systems forward</li></ul></div><div class="sl-vis"><em>\u2699\ufe0f</em><span>Design system advocacy<br>modernization roadmap</span></div></div>' },
+      { ey: 'Solution', h: 'Need-based segmentation.',
+        body: '<div class="sl-grid"><div class="sl-txt"><ul><li>Re-architected around customer goals: buying, refinancing, learning \u2014 not product categories</li><li>Rates and tools surfaced immediately. Value before commitment.</li><li>Reduced to two CTAs: a primary action and a secondary exploration path</li></ul></div><div class="sl-vis"><em>\u2728</em><span>Redesigned chase.com<br>before / after</span></div></div>' },
+      { ey: 'Impact', h: '33% conversion improvement.',
+        body: '<div class="sl-grid one"><div class="sl-txt"><div class="sl-stats"><div><div class="sl-sn" style="color:#4f46e5">33%</div><div class="sl-sl">Conversion rate improvement</div></div><div><div class="sl-sn" style="color:#4f46e5">38%</div><div class="sl-sl">Boost in lead initiation</div></div><div><div class="sl-sn" style="color:#4f46e5">$10K+</div><div class="sl-sl">Investment secured</div></div></div><ul><li>Showing rates and tools before asking for anything removed the biggest source of drop-off</li><li>Need-based segmentation met customers at their goal, not Chase\'s product menu</li></ul></div></div>' }
+    ]
+  },
+  apply: {
+    name: 'Home Lending Apply \u00b7 JPMC', acc: '#0891b2',
+    slides: [
+      { ey: 'The Tension', h: 'Two sides. One product.',
+        body: '<div class="sl-grid"><div class="sl-txt"><div class="sl-card"><strong>Business side</strong><span>Quality leads, revenue, digital self-service over expensive HLA calls</span></div><div class="sl-card"><strong>Customer side</strong><span>Once-in-a-lifetime financial commitment. They need to trust the bank first.</span></div><div class="sl-card"><strong>The problem</strong><span>The apply flow was optimized for the business, not for the customer\'s confidence</span></div></div><div class="sl-vis"><em>\u2696\ufe0f</em><span>Business vs. customer needs<br>tension framework</span></div></div>' },
+      { ey: 'Data', h: 'Where they dropped. And why.',
+        body: '<div class="sl-grid"><div class="sl-txt"><ul><li>High drop-offs on: employment page, review page, co-applicant info, and the landing page itself</li><li>Exit survey top reasons: just exploring, credit pull concerns, missing info, have questions</li></ul><div class="sl-q" style="border-color:#0891b2;margin-top:14px">"I just wanted to see numbers first. I wasn\'t ready to put in my SSN."</div></div><div class="sl-vis"><em>\ud83d\udcc9</em><span>Drop-off funnel by page<br>exit survey top reasons</span></div></div>' },
+      { ey: 'Discovery', h: '1-Week workshop. Into the customer\'s mind.',
+        body: '<div class="sl-grid"><div class="sl-txt"><ul><li>Empathy mapping, prioritization matrix, assumption mapping, then design concepts</li><li>Three driving insights: customers want rates before applying, applying feels permanent, the process is opaque</li></ul></div><div class="sl-vis"><em>\ud83e\udde0</em><span>Empathy map<br>customer mental model</span></div></div>' },
+      { ey: 'Principles', h: 'Value before commitment. Confidence before forms.',
+        body: '<div class="sl-grid three"><div class="sl-txt"><div class="sl-card"><strong>Numbers first</strong><span>Show the rate and offer before the first form field</span></div></div><div class="sl-txt"><div class="sl-card"><strong>Personalized context</strong><span>Why Chase? What do they know about my home?</span></div></div><div class="sl-txt"><div class="sl-card"><strong>Process transparency</strong><span>What happens after I apply?</span></div></div></div>' },
+      { ey: 'Impact', h: 'Fewer drop-offs. More confident applicants.',
+        body: '<div class="sl-grid one"><div class="sl-txt"><ul><li>Personalized rate display before the first form field</li><li>Transparent process overview: what happens after you apply, step by step</li><li>Soft credit check option surfaced prominently \u2014 reduced fear of commitment</li><li>Contextual HLA access points: digital first, human when needed</li></ul></div></div>' }
+    ]
+  },
+  paycom: {
+    name: 'Atomic Design Enhancement \u00b7 Paycom', acc: '#e11d48',
+    slides: [
+      { ey: 'The Brief', h: 'The project asked for X. I delivered X and a system.',
+        body: '<div class="sl-grid"><div class="sl-txt"><ul><li>As an Associate Designer at Paycom, I went beyond the assigned project to study how the entire component system worked</li><li>Noticed inconsistencies creating design debt and slowing engineering</li><li>Took initiative to audit the existing library and propose targeted enhancements</li></ul></div><div class="sl-vis"><em>\ud83d\udd2c</em><span>Component library audit<br>inconsistencies mapped</span></div></div>' },
+      { ey: 'What I found', h: 'Spacing. States. Variants. Typography. All inconsistent.',
+        body: '<div class="sl-grid"><div class="sl-txt"><div class="sl-card"><strong>Spacing inconsistency</strong><span>Same visual intent, different values across similar component types</span></div><div class="sl-card"><strong>State fragmentation</strong><span>Hover, focus, disabled designed independently per component instead of inherited</span></div><div class="sl-card"><strong>Variant sprawl</strong><span>8+ variants that could be 3 with proper prop structure</span></div></div><div class="sl-vis"><em>\ud83d\uddc2\ufe0f</em><span>Audit findings<br>inconsistency examples</span></div></div>' },
+      { ey: 'Proposals', h: 'Systematic fixes with clear rationale.',
+        body: '<div class="sl-grid"><div class="sl-txt"><ul><li>Spacing: 8pt grid with named tokens applied consistently across all components</li><li>State inheritance: one shared interactive state pattern as the source of truth</li><li>Variant consolidation: prop-based composition over individual variant designs</li></ul></div><div class="sl-vis"><em>\ud83d\udccf</em><span>Proposed spacing system<br>state pattern documentation</span></div></div>' },
+      { ey: 'Before + After', h: 'Cleaner components. Less guesswork.',
+        body: '<div class="sl-grid"><div class="sl-txt"><div class="sl-card"><strong>Before</strong><span>Spacing on the fly, inconsistent states, 40+ variants diverging over time</span></div><div class="sl-card"><strong>After</strong><span>Tokens do the work, states inherited, component count reduced ~30%</span></div><div class="sl-card"><strong>Engineering impact</strong><span>Components became more predictable and composable</span></div></div><div class="sl-vis"><em>\u2728</em><span>Before / after comparison<br>visual consistency</span></div></div>' },
+      { ey: 'Reflection', h: 'Atomic thinking as a design superpower.',
+        body: '<div class="sl-grid one"><div class="sl-txt"><ul><li>Atomic design isn\'t just a methodology. It\'s a forcing function for clarity.</li><li>This work established me as someone who thinks beyond the brief</li><li>The system-level thinking here directly shaped how I approached design systems at JPMC \u2014 where the atomic template saved 3 sprints</li></ul><div class="sl-q" style="border-color:#e11d48;margin-top:14px">Good components aren\'t just reusable. They\'re impossible to use wrong.</div></div></div>' }
+    ]
+  }
+};
+
+var curSl = 0;
+var curSlides = [];
+
+function openProject(key, e) {
+  if (e) e.stopPropagation();
+  var p = P[key];
+  if (!p) return;
+  document.getElementById('modalName').textContent = p.name;
+  curSl = 0;
+  curSlides = p.slides;
+  buildSlides(p);
+  document.getElementById('modalBg').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function buildSlides(p) {
+  var html = '';
+  p.slides.forEach(function(s) {
+    html += '<div class="slide"><div class="sl-bar" style="background:' + p.acc + '"></div><div class="sl-ey">' + s.ey + '</div><h2 class="sl-h">' + s.h + '</h2>' + s.body + '</div>';
+  });
+  document.getElementById('belt').innerHTML = html;
+  var dotsHtml = '';
+  p.slides.forEach(function(_, i) {
+    dotsHtml += '<div class="sn-dot ' + (i === 0 ? 'on' : '') + '" onclick="goSl(' + i + ')"></div>';
+  });
+  document.getElementById('slDots').innerHTML = dotsHtml;
+  updateNav();
+}
+
+function goSl(n) {
+  var len = curSlides.length;
+  curSl = Math.max(0, Math.min(n, len - 1));
+  document.getElementById('belt').style.transform = 'translateX(-' + (curSl * 100) + '%)';
+  document.getElementById('slCount').textContent = (curSl + 1) + ' / ' + len;
+  document.querySelectorAll('.sn-dot').forEach(function(d, i) {
+    d.classList.toggle('on', i === curSl);
+  });
+  updateNav();
+}
+
+function updateNav() {
+  var len = curSlides.length;
+  document.getElementById('slPrev').disabled = curSl === 0;
+  document.getElementById('slNext').disabled = curSl === len - 1;
+  document.getElementById('slCount').textContent = (curSl + 1) + ' / ' + len;
+}
+
+function prevSl() { goSl(curSl - 1); }
+function nextSl() { goSl(curSl + 1); }
+
+function closeModal() {
+  document.getElementById('modalBg').classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+function openLive() {
+  document.getElementById('liveBg').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeLive() {
+  document.getElementById('liveBg').classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+document.addEventListener('keydown', function(e) {
+  if (document.getElementById('liveBg').classList.contains('open')) {
+    if (e.key === 'Escape') closeLive();
+    return;
+  }
+  if (!document.getElementById('modalBg').classList.contains('open')) return;
+  if (e.key === 'Escape') closeModal();
+  if (e.key === 'ArrowRight') nextSl();
+  if (e.key === 'ArrowLeft') prevSl();
+});
+</script>
+</body>
+</html>
